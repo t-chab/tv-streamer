@@ -1,0 +1,25 @@
+{
+  "name": "tv-streamer",
+  "version": "0.0.1",
+  "description": "Simple express app to stream video using HLS in browser.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchabaud/tv-streamer.git"
+  },
+  "author": "tchab",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/tchabaud/tv-streamer/issues"
+  },
+  "homepage": "https://github.com/tchabaud/tv-streamer#readme",
+  "dependencies": {
+    "basic-auth-connect": "1.0.0",
+    "express": "4.16.3",
+    "ffmpeg-static": "2.3.0",
+    "fluent-ffmpeg": "2.1.2"
+  }
+}
