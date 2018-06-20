@@ -2,16 +2,17 @@
 
 Simple video streamer through html5 browser using HLS
 
+# Prerequisites
+
+- [NodeJS](https://nodejs.org/) v8 LTS
+
+
 # Usage
 
-Clone this repository, then just launch the script
+Clone this repository, then :
 
 ```
-./streamToHls.sh "http://url.to.your.stream"
+npm i
+npm start
 ```
-
-Then serve the directory content to browser, for example using a simple http server :
-
-```
-python3 -m http.server 5000
-```
+Feel free to edit *config.json* and *credentials.json* to suits your needs.
