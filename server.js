@@ -24,7 +24,11 @@ const stream = './' + config.webdir + '/' + config.m3u8_name;
 // TODO : find a way to add user_agent option
 // '-user_agent', '"' + config.user_agent + '"'
 ffmpeg(url).inputOptions([
-    '-re'
+    '-re',
+    '-reconnect', '1',
+    '-reconnect_at_eof', '0',
+    '-reconnect_streamed', '1',
+    '-reconnect_delay_max', '4294'
 ]).output(stream)
     .outputOptions([
         '-c:v', config.video_codec,
@@ -47,11 +51,15 @@ ffmpeg(url).inputOptions([
 
 // Set up express app
 const app = express();
-const auth = basicAuth(credentials.login, credentials.password);
 
 // Configure a protected route to static resources directory
-app.use('/', [auth, express['static'](__dirname + '/' + config.webdir)]);
-
+// Enable auth only if at least a login is supplied
+if (credentials.login && credentials.login > 0 && !credentials.login.trim()) {
+    const auth = basicAuth(credentials.login, credentials.password);
+    app.use('/', [auth, express['static'](__dirname + '/' + config.webdir)]);
+} else {
+    app.use('/', express['static'](__dirname + '/' + config.webdir));
+}
 app.listen(config.port, config.host, function () {
     console.log('Server listening on %s:%s', config.host, config.port);
 });
