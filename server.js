@@ -40,7 +40,8 @@ ffmpeg(url).inputOptions([
         '-c:a', config.audio_codec,
         '-sws_flags', config.scale_alg,
         '-hls_list_size', config.hls_list_size,
-        '-hls_flags', 'delete_segments'
+        '-hls_flags', 'delete_segments',
+        '-reset_timestamps', '1'
     ]).on('start', function (commandLine) {
         console.log('ffmpeg started with command line ', commandLine);
     }).on('stderr', function (stdErrLine) {
