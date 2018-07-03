@@ -25,8 +25,9 @@ const stream = './' + config.webdir + '/' + config.m3u8_name;
 // '-user_agent', '"' + config.user_agent + '"'
 ffmpeg(url).inputOptions([
     '-re',
+    '-multiple_requests', '1',
     '-reconnect', '1',
-    '-reconnect_at_eof', '0',
+    '-reconnect_at_eof', '1',
     '-reconnect_streamed', '1',
     '-reconnect_delay_max', '4294'
 ]).output(stream)
