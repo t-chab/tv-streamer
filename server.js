@@ -41,7 +41,15 @@ ffmpeg(url).inputOptions([
         '-sws_flags', config.scale_alg,
         '-hls_list_size', config.hls_list_size,
         '-hls_flags', 'delete_segments',
-        '-reset_timestamps', '1'
+        '-hls_time', '10',
+        '-hls_wrap', '8',
+        '-reset_timestamps', '1',
+        '-crf', '20',
+        '-maxrate', '1.5M',
+        '-bufsize', '3M',
+        '-vf', 'scale=w=1280:h=720:force_original_aspect_ratio=decrease',
+        '-flags',
+        '-global_header'
     ]).on('start', function (commandLine) {
         console.log('ffmpeg started with command line ', commandLine);
     }).on('stderr', function (stdErrLine) {
