@@ -6,21 +6,33 @@
     <meta name="description" content="Live streaming">
     <meta name="author" content="me">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.0.5/alt/video-js-cdn.min.css"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.0.5/alt/video.core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
-
 <body>
     <div class="video-box">
-        <video id="current-video" class="video-js vjs-default-skin" controls>
-            <source src="stream.m3u8" type="application/x-mpegURL">
-        </video>
+        <video id="current-video" controls></video>
         <script>
-            var player = videojs('current-video');
-            player.play();
+            var videoUrl = 'stream.m3u8';
+            var video = document.getElementById('current-video');
+            if(Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                    video.play();
+                });
+            }
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoUrl;
+                video.addEventListener('loadedmetadata',function() {
+                    video.play();
+                });
+            }
+            if(video.requestFullscreen) {
+                video.requestFullscreen();
+            }
         </script>
+        <noscript>Your browser does not handle Javascript.</noscript>
     </div>
 </body>
 </html>
-
