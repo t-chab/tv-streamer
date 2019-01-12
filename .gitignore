@@ -1,4 +1,6 @@
 *.ts
 *.m3u8
-credentials.json
+credentials*.json
 node_modules
+.idea
+*.iml
